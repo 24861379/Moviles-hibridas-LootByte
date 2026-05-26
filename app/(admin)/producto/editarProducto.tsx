@@ -1,8 +1,8 @@
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Controller, set, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import HeadersSimple from "../../../components/headers/headersSimple";
@@ -10,13 +10,17 @@ import { Categoria } from "../../../models/categoria";
 import { Color } from "../../../models/color";
 import { cargarCategorias } from "../../../services/categoriaServices";
 import { cargarColores } from "../../../services/colorService";
-import { crearProducto } from "../../../services/productoService";
+import { actualizarProducto, obtenerProducto } from "../../../services/productoService";
 
-export default function CrearProducto() {
+export default function EditarProducto() {
     const [categorias, setCategorias] = useState<Categoria[]>([]);
     const [colores, setColores] = useState<Color[]>([]);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const params = useLocalSearchParams();
+    const id = params.id as string;
+
+    const { control, handleSubmit, reset } = useForm();
 
     useEffect(() => {
         async function cargarDatos() {
@@ -24,56 +28,45 @@ export default function CrearProducto() {
             const coloresData = await cargarColores();
             setCategorias(categoriasData);
             setColores(coloresData);
+
+            if (id) {
+                const producto = await obtenerProducto(id);
+                if (producto) {
+                    reset({
+                        nombre_producto: producto.nombre_producto,
+                        codigo_producto: producto.codigo_producto,
+                        precio_producto: producto.producto_color?.[0]?.precio?.toString() || "",
+                        stock_producto: producto.producto_color?.[0]?.stock?.toString() || "",
+                        colores_producto: producto.producto_color?.[0]?.id_color_FK || "",
+                        categoria_producto: producto.id_categoria_FK || "",
+                        descripcion: producto.descripcion || "",
+                    });
+                    if (producto.foto_producto) {
+                        setImage(producto.foto_producto);
+                    }
+                }
+            }
         }
         cargarDatos();
-    }, []);
-
-    const { control, handleSubmit, reset } = useForm();
+    }, [id]);
 
     async function guardarProducto(data: any) {
-        if (!image) {
-            Alert.alert("Error", "Por favor selecciona una imagen");
-            return;
-        }
-
         if (!data.nombre_producto?.trim()) {
             Alert.alert("Error", "Ingrese nombre");
             return;
         }
 
-        if (!data.precio_producto) {
-            Alert.alert("Error", "Ingrese precio");
-            return;
-        }
-
-        if (!data.stock_producto) {
-            Alert.alert("Error", "Ingrese stock");
-            return;
-        }
-
-        if (!data.categoria_producto) {
-            Alert.alert("Error", "Seleccione categoría");
-            return;
-        }
-
-        if (!data.colores_producto) {
-            Alert.alert("Error", "Seleccione color");
-            return;
-        }
-
         setLoading(true);
-        const resultado = await crearProducto(data, image);
+        const resultado = await actualizarProducto(id, data, image);
         setLoading(false);
-        
+
         if (resultado.success) {
-            reset();
-            setImage(null);
-            Alert.alert("Éxito", "Producto creado correctamente");
+            Alert.alert("Éxito", "Producto actualizado correctamente");
             router.back();
         } else {
             const mensajeError = resultado && resultado.error
                 ? (typeof resultado.error === 'string' ? resultado.error : String(resultado.error))
-                : "No se pudo crear el producto";
+                : "No se pudo actualizar el producto";
             Alert.alert("Error", mensajeError);
         }
     }
@@ -98,12 +91,9 @@ export default function CrearProducto() {
 
     return (
         <>
-            <HeadersSimple title="Crear producto" />
+            <HeadersSimple title="Editar producto" />
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-
-                    {/* <View style={styles.container}> */}
-
                         <Button mode="outlined" onPress={seleccionarImagen}>
                             Seleccionar imagen
                         </Button>
@@ -137,7 +127,6 @@ export default function CrearProducto() {
                                 <TextInput label="Stock del producto" value={value} onChangeText={onChange} mode="outlined" style={styles.input} />
                             )} />
 
-                        {/* spinner */}
                         <Controller control={control} name="colores_producto" defaultValue=""
                             render={({ field: { onChange, value } }) => (
                                 <View style={styles.pickerContainer}>
@@ -153,7 +142,6 @@ export default function CrearProducto() {
                                 </View>
                             )} />
 
-                        {/* spinner */}
                         <Controller control={control} name="categoria_producto" defaultValue="" render={({ field: { onChange, value } }) => (
                             <View style={styles.pickerContainer}>
                                 <Picker selectedValue={value} onValueChange={(itemValue) => onChange(itemValue)}>
@@ -180,9 +168,8 @@ export default function CrearProducto() {
                             onPress={handleSubmit(guardarProducto)}
                             loading={loading}
                             disabled={loading}>
-                            Guardar producto
+                            Guardar cambios
                         </Button>
-                    {/* </View> */}
                 </ScrollView>
             </KeyboardAvoidingView>
         </>

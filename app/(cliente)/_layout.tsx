@@ -77,7 +77,13 @@ export default function ClienteLayout() {
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="person-outline" size={size} color={color} />
                     ),
-                }} />
+                    }} />
+                
+                {/* <Tabs.Screen
+                    name=""
+                    options={{
+                        href: null,
+                    }} /> */}
             </Tabs>
         </View>//del boton temporal
     );

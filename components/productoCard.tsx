@@ -1,19 +1,59 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, View, Text, Image} from "react-native";
-import { Menu, Divider, IconButton } from "react-native-paper";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import { Divider, IconButton, Menu } from "react-native-paper";
 import { Producto } from "../models/producto";
+import { eliminarProducto } from "../services/productoService";
 
 interface Props{
     producto: Producto;
+    onDelete?: (id_producto: string) => void;
 }
 
-export default function ProductoCard({ producto }: Props) { 
+export default function ProductoCard({ producto, onDelete }: Props) { 
     const [visible, setVisible] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const router = useRouter();
     const variante = producto.producto_color?.[0];
+
+    async function handleDelete() {
+        setVisible(false);
+
+        Alert.alert(
+            "Eliminar producto",
+            `¿Estás seguro de que deseas eliminar "${producto.nombre_producto}"?`,
+            [
+                {
+                    text: "Cancelar",
+                    style: "cancel"
+                },
+                {
+                    text: "Eliminar",
+                    style: "destructive",
+                    onPress: async () => {
+                        setIsDeleting(true);
+                        const result = await eliminarProducto(producto.id_producto);
+                        setIsDeleting(false);
+
+                        if (result.success) {
+                            onDelete?.(producto.id_producto);
+                            Alert.alert("Eliminado", "El producto se eliminó correctamente.");
+                        } else {
+                            Alert.alert("Error", result.error || "No se pudo eliminar el producto.");
+                        }
+                    }
+                }
+            ]
+        );
+    }
 
     return (
       <View style={styles.card}>
-            <Image source={{ uri: producto.foto_producto }} style={styles.image} />
+            {producto.foto_producto ? (
+                <Image source={{ uri: producto.foto_producto }} style={styles.image} />
+            ) : (
+                <View style={[styles.image, styles.imagePlaceholder]} />
+            )}
             <View style={{ flex: 1, marginLeft: 20 }}>
 
                 <Text style={styles.text}>
@@ -36,12 +76,13 @@ export default function ProductoCard({ producto }: Props) {
                 <Menu.Item title="Editar"
                     onPress={() => {
                     setVisible(false);
+                    router.push(`/producto/editarProducto?id=${producto.id_producto}`);
                 }} />
                 <Divider />
                 <Menu.Item title="Eliminar"
                     titleStyle={{ color: "red" }}
                     onPress={() => {
-                        setVisible(false);
+                        handleDelete();
                     }}  />
             </Menu>
       </View>
@@ -73,5 +114,8 @@ const styles = StyleSheet.create({
     stock:{
         fontSize: 18,
 
+    },
+    imagePlaceholder: {
+        backgroundColor: "#f0f0f0"
     }
 });

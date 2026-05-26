@@ -1,15 +1,21 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import HeaderBusquedaAdmin from "../../components/headers/headerBusquedaAdmin";
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ProductoCard from "../../components/productoCard";
 import { obtenerProductos } from "../../services/productoService";
 import { Producto } from "../../models/producto";
 import { FAB } from "react-native-paper";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 
 export default function Productos() {
   const router = useRouter();
   const [productos, setProductos] = useState<Producto[]>([]);
+
+      useFocusEffect(
+          useCallback(() => {
+              cargarProductos();
+          }, [])
+      );
 
   async function cargarProductos() {
     const data = await obtenerProductos();
@@ -27,7 +33,10 @@ export default function Productos() {
         data={productos}
         keyExtractor={(item) => item.id_producto.toString()}
         renderItem={({ item }) => (
-          <ProductoCard producto={item} />
+          <ProductoCard
+            producto={item}
+            onDelete={(id) => setProductos((prev) => prev.filter((producto) => producto.id_producto !== id))}
+          />
         )} />
       <FAB
         icon="plus"
