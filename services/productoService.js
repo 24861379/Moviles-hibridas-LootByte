@@ -125,3 +125,28 @@ export async function crearProducto(data, image) {
         return { success: false, error: error };
     }
 }
+
+export async function obtenerProducto(id) {
+    const { data: producto, error: errorProducto } = await supabase
+        .from("producto")
+        .select("*")
+        .eq("id_producto", id)
+        .single();
+
+    if (errorProducto) {
+        console.log(errorProducto);
+        return null;
+    }
+
+    const { data: colores, error: errorColores } = await supabase
+        .from("producto_color")
+        .select("*")
+        .eq("id_producto_FK", id);
+
+    if (errorColores) {
+        console.log(errorColores);
+        return { ...producto, producto_color: [] };
+    }
+
+    return { ...producto, producto_color: colores || [] };
+}
