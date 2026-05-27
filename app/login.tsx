@@ -2,13 +2,13 @@ import { router } from "expo-router";
 import { useState } from "react";
 
 import {
-    Alert,
-    Image,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function App() {
@@ -17,9 +17,9 @@ export default function App() {
 
   const iniciarSesion = () => {
     if (correo === "admin@gmail.com" && contrasena === "1234") {
-      router.replace("/(admin)/perfilAdmin");
+      router.replace("/perfilAdmin");
     } else if (correo === "cliente@gmail.com" && contrasena === "1234") {
-      router.replace("/(cliente)");
+      router.replace("/");
     } else {
       Alert.alert("Error", "Correo o contraseña incorrectos");
     }

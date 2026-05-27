@@ -15,21 +15,21 @@ export default function perfilAdmin() {
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(admin)/productos")}
+        onPress={() => router.push("/productos")}
       >
         <Text>📦 Productos</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(admin)/pedidos")}
+        onPress={() => router.push("/pedidos")}
       >
         <Text>🛒 Pedidos</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(admin)/usuarios")}
+        onPress={() => router.push("/usuarios")}
       >
         <Text>👥 Usuarios</Text>
       </TouchableOpacity>

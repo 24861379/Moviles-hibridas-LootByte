@@ -8,7 +8,7 @@ export default function Perfil() {
 
   const iniciarSesion = () => {
     if (correo === "admin@gmail.com" && contrasena === "1234") {
-      router.replace("/(admin)/perfilAdmin");
+      router.replace("/perfilAdmin");
     } else if (correo === "cliente@gmail.com" && contrasena === "1234") {
       router.push("/perfil-cliente");
     } else {

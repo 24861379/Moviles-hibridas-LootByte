@@ -12,28 +12,28 @@ export default function Perfil() {
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(cliente)/informacion-personal")}
+        onPress={() => router.push("/informacion-personal")}
       >
-        <Text>🪪 Información personal</Text>
+        <Text>Información personal</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.opcion}
         onPress={() => router.push("/seguridad")}
       >
-        <Text>🔒 Seguridad</Text>
+        <Text>Seguridad</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.opcion}
         onPress={() => router.push("/privacidad")}
       >
-        <Text>🛡️ Privacidad</Text>
+        <Text>Privacidad</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
   style={styles.logoutButton}
-  onPress={() => router.push("/(cliente)/perfil")}
+  onPress={() => router.push("/perfil")}
 >
   <Text style={styles.logoutText}>Cerrar sesión</Text>
 </TouchableOpacity>

@@ -35,7 +35,7 @@ export default function HeaderSimplePerfilCliente({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#A855F7",
-    height: 225,
+    height: 120,
     paddingTop: 50,
     paddingHorizontal: 15,
     paddingBottom: 10,

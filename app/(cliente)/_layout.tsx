@@ -3,7 +3,9 @@ import { Tabs, useRouter } from "expo-router";
 
 import {
     StyleSheet,
-    View
+    View,
+    TouchableOpacity,
+    Text
 } from "react-native";
 
 export default function ClienteLayout() {
@@ -31,7 +33,8 @@ export default function ClienteLayout() {
                 tabBarStyle: {
                     backgroundColor: "#4B0082",
                     height: 70,
-                },
+                    },
+                    tabBarHideOnKeyboard: true,
                 tabBarActiveTintColor: "white",
                 tabBarInactiveTintColor: "#D3D3D3",
                 tabBarActiveBackgroundColor: "#4B0082",
@@ -77,11 +80,11 @@ export default function ClienteLayout() {
                     ),
                     }} />
                 
-                {/* <Tabs.Screen
-                    name=""
+                <Tabs.Screen
+                    name="informacion-personal"
                     options={{
                         href: null,
-                    }} /> */}
+                    }} />
             </Tabs>
         </View>//del boton temporal
     );
