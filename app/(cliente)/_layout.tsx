@@ -1,5 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs, useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import {
     StyleSheet,
@@ -100,4 +101,16 @@ const styles = StyleSheet.create({
         fontWeight: "700",
     },
 
-});
+        <Tabs.Screen
+          name="perfil"
+          options={{
+            title: "Yo",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person-outline" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
+  );
+}

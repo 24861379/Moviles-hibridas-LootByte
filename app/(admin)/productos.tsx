@@ -2,7 +2,7 @@ import { View, FlatList, StyleSheet } from "react-native";
 import HeaderBusquedaAdmin from "../../components/headers/headerBusquedaAdmin";
 import { useCallback, useEffect, useState } from "react";
 import ProductoCard from "../../components/productoCard";
-import { obtenerProductos } from "../../services/productoService";
+
 import { Producto } from "../../models/producto";
 import { FAB } from "react-native-paper";
 import { useFocusEffect, useRouter } from "expo-router";

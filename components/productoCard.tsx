@@ -67,9 +67,10 @@ export default function ProductoCard({ producto, onDelete }: Props) {
                 <Text style={styles.stock}>
                     Cantidad disponible: {variante?.stock}
                 </Text>
-            </View>
+              </View>
+            </TouchableOpacity>
 
-            <Menu visible={visible} onDismiss={() => setVisible(false)} anchor={
+            <View style={styles.actions}>
                 <IconButton
                     icon="dots-vertical"
                     onPress={() => setVisible(true)}/>}>
@@ -96,11 +97,22 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         borderRadius: 10,
+        position: "relative",
+    },
+    content: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
     },
     image: {
         width: 100,
         height: 100,
-        borderRadius: 10
+        borderRadius: 10,
+        marginRight: 10,
+    },
+    info: {
+        flex: 1,
+        justifyContent: "center",
     },
     text: {
         fontSize: 20,
@@ -111,7 +123,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 5,
     },
-    stock:{
+    stock: {
         fontSize: 18,
 
     },
