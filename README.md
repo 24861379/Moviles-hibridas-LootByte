@@ -54,9 +54,8 @@ LootByte es una aplicación móvil híbrida orientada al comercio electrónico, 
 Correo: cliente@gmail.com
 Contraseña: 1234
 
-### Admin
-```txt
-Correo: admin@gmail.com
+### Administrador
+Correo: admin@gmail.com  
 Contraseña: 1234
 
 
