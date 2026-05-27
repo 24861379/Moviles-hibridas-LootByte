@@ -24,32 +24,31 @@ export default function Home() {
     }, []);
 
     return (
-        <View style={{ flex: 1, padding: 10 }}>
-
+        <>
             <HeaderBusqueda />
-
-            <FlatList
-                data={productos}
-                keyExtractor={(item) => item.id_producto.toString()}
-                renderItem={({ item }) => (
-                    <ProductoCard
-                        producto={item}
-                        onPress={() => router.push(`/producto/${item.id_producto}`)}
-                        onAddToCart={() => {
-                            addToCart({
-                                id_producto: item.id_producto,
-                                nombre_producto: item.nombre_producto,
-                                descripcion: item.descripcion,
-                                foto_producto: item.foto_producto,
-                                producto_color: item.producto_color,
-                                quantity: 1,
-                            });
-                            router.push("/carrito");
-                        }}
-                    />
-                )}
-            />
-
-        </View>
+            <View style={{ flex: 1, padding: 10 }}>
+                <FlatList
+                    data={productos}
+                    keyExtractor={(item) => item.id_producto.toString()}
+                    renderItem={({ item }) => (
+                        <ProductoCard
+                            producto={item}
+                            onPress={() => router.push(`/producto/${item.id_producto}`)}
+                            onAddToCart={() => {
+                                addToCart({
+                                    id_producto: item.id_producto,
+                                    nombre_producto: item.nombre_producto,
+                                    descripcion: item.descripcion,
+                                    foto_producto: item.foto_producto,
+                                    producto_color: item.producto_color,
+                                    quantity: 1,
+                                });
+                                router.push("/carrito");
+                            }}
+                        />
+                    )}
+                />
+            </View>
+        </>
     );
 }

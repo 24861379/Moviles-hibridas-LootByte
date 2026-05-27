@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Divider, IconButton, Menu } from "react-native-paper";
 import { Producto } from "../models/producto";
 import { eliminarProducto } from "../services/productoService";
@@ -8,9 +8,11 @@ import { eliminarProducto } from "../services/productoService";
 interface Props{
     producto: Producto;
     onDelete?: (id_producto: string) => void;
+    onPress?: () => void;
+    onAddToCart?: () => void;
 }
 
-export default function ProductoCard({ producto, onDelete }: Props) { 
+export default function ProductoCard({ producto, onDelete, onPress, onAddToCart }: Props) { 
     const [visible, setVisible] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const router = useRouter();
@@ -47,47 +49,63 @@ export default function ProductoCard({ producto, onDelete }: Props) {
         );
     }
 
-    return (
-      <View style={styles.card}>
-            {producto.foto_producto ? (
-                <Image source={{ uri: producto.foto_producto }} style={styles.image} />
-            ) : (
-                <View style={[styles.image, styles.imagePlaceholder]} />
-            )}
-            <View style={{ flex: 1, marginLeft: 20 }}>
+        return (
+            <View style={styles.card}>
+                <TouchableOpacity
+                    style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+                    onPress={onPress}
+                    activeOpacity={0.8}
+                >
+                    {producto.foto_producto ? (
+                        <Image source={{ uri: producto.foto_producto }} style={styles.image} />
+                    ) : (
+                        <View style={[styles.image, styles.imagePlaceholder]} />
+                    )}
 
-                <Text style={styles.text}>
-                    {producto.nombre_producto}
-                </Text>
+                    <View style={{ flex: 1, marginLeft: 20 }}>
+                        <Text style={styles.text}>{producto.nombre_producto}</Text>
 
-                <Text style={styles.precio}>
-                    ${ variante?.precio }
-                </Text>
+                        <Text style={styles.precio}>${variante?.precio}</Text>
 
-                <Text style={styles.stock}>
-                    Cantidad disponible: {variante?.stock}
-                </Text>
-              </View>
-            </TouchableOpacity>
+                        <Text style={styles.stock}>Cantidad disponible: {variante?.stock}</Text>
+                    </View>
+                </TouchableOpacity>
 
-            <View style={styles.actions}>
-                <IconButton
-                    icon="dots-vertical"
-                    onPress={() => setVisible(true)}/>}>
-                <Menu.Item title="Editar"
-                    onPress={() => {
-                    setVisible(false);
-                    router.push(`/producto/editarProducto?id=${producto.id_producto}`);
-                }} />
-                <Divider />
-                <Menu.Item title="Eliminar"
-                    titleStyle={{ color: "red" }}
-                    onPress={() => {
-                        handleDelete();
-                    }}  />
-            </Menu>
-      </View>
-    );
+                <View style={styles.actions}>
+                    <IconButton
+                        icon="cart"
+                        onPress={() => onAddToCart?.()}
+                    />
+
+                    <Menu
+                        visible={visible}
+                        onDismiss={() => setVisible(false)}
+                        anchor={
+                            <IconButton
+                                icon="dots-vertical"
+                                onPress={() => setVisible(true)}
+                            />
+                        }
+                    >
+                        <Menu.Item
+                            title="Editar"
+                            onPress={() => {
+                                setVisible(false);
+                                router.push(`/producto/editarProducto?id=${producto.id_producto}`);
+                            }}
+                        />
+                        <Divider />
+                        <Menu.Item
+                            title="Eliminar"
+                            titleStyle={{ color: "red" }}
+                            onPress={() => {
+                                handleDelete();
+                            }}
+                        />
+                    </Menu>
+                </View>
+            </View>
+        );
 }
 
 const styles = StyleSheet.create({
@@ -129,5 +147,10 @@ const styles = StyleSheet.create({
     },
     imagePlaceholder: {
         backgroundColor: "#f0f0f0"
+    }
+    ,
+    actions: {
+        justifyContent: "center",
+        alignItems: "center",
     }
 });

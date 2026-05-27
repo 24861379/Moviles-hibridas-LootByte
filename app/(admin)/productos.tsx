@@ -1,11 +1,12 @@
-import { View, FlatList, StyleSheet } from "react-native";
-import HeaderBusquedaAdmin from "../../components/headers/headerBusquedaAdmin";
 import { useCallback, useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import HeaderBusquedaAdmin from "../../components/headers/headerBusquedaAdmin";
 import ProductoCard from "../../components/productoCard";
+import { obtenerProductos } from "../../services/productoService";
 
-import { Producto } from "../../models/producto";
-import { FAB } from "react-native-paper";
 import { useFocusEffect, useRouter } from "expo-router";
+import { FAB } from "react-native-paper";
+import { Producto } from "../../models/producto";
 
 export default function Productos() {
   const router = useRouter();
