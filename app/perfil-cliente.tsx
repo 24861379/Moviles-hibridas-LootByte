@@ -1,45 +1,42 @@
-import HeaderSimplePerfilCliente from "@/components/headers/headersSimplePerfilCliente";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function perfilAdmin() {
+export default function Perfil() {
   return (
     <View style={styles.container}>
-      <HeaderSimplePerfilCliente title="Perfil" />
-
       <View style={styles.perfilBox}>
         <Text style={styles.icono}>👤</Text>
-        <Text style={styles.nombre}>Administrador</Text>
-        <Text style={styles.correo}>admin@gmail.com</Text>
+        <Text style={styles.nombre}>Usuario Demo</Text>
+        <Text style={styles.correo}>usuariodemo@email.com</Text>
       </View>
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(admin)/productos")}
+        onPress={() => router.push("/(cliente)/informacion-personal")}
       >
-        <Text>📦 Productos</Text>
+        <Text>🪪 Información personal</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(admin)/pedidos")}
+        onPress={() => router.push("/seguridad")}
       >
-        <Text>🛒 Pedidos</Text>
+        <Text>🔒 Seguridad</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.opcion}
-        onPress={() => router.push("/(admin)/usuarios")}
+        onPress={() => router.push("/privacidad")}
       >
-        <Text>👥 Usuarios</Text>
+        <Text>🛡️ Privacidad</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.cerrarSesion}
-        onPress={() => router.replace("/")}
-      >
-        <Text style={styles.textoCerrar}>Cerrar sesión</Text>
-      </TouchableOpacity>
+  style={styles.logoutButton}
+  onPress={() => router.push("/(cliente)/perfil")}
+>
+  <Text style={styles.logoutText}>Cerrar sesión</Text>
+</TouchableOpacity>
     </View>
   );
 }
@@ -49,38 +46,46 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+
   perfilBox: {
-    backgroundColor: "#fff",
+    backgroundColor: "#A855F7",
     alignItems: "center",
     padding: 30,
   },
+
   icono: {
     fontSize: 50,
   },
+
   nombre: {
-    color: "black",
-    fontSize: 20,
+    color: "white",
+    fontSize: 18,
     fontWeight: "bold",
     marginTop: 10,
   },
+
   correo: {
-    color: "gray",
+    color: "white",
     marginTop: 5,
   },
+
   opcion: {
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
-  cerrarSesion: {
+
+  logoutButton: {
     margin: 20,
     backgroundColor: "#A855F7",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
   },
-  textoCerrar: {
+
+  logoutText: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 16,
   },
 });

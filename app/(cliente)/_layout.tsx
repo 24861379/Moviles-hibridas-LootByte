@@ -2,10 +2,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs, useRouter } from "expo-router";
 
 import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  View,
+    StyleSheet,
+    View
 } from "react-native";
 
 export default function ClienteLayout() {
@@ -92,25 +90,25 @@ export default function ClienteLayout() {
 //ESTO es TEMPORAL
 const styles = StyleSheet.create({
 
-  switchButton: {
-    position: "absolute",
+    switchButton: {
+        position: "absolute",
 
-    top: 50,
-    right: 15,
+        top: 50,
+        right: 15,
 
-    zIndex: 999,
+        zIndex: 999,
 
-    backgroundColor: "#FF6B6B",
+        backgroundColor: "#FF6B6B",
 
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
 
-    borderRadius: 20,
-  },
+        borderRadius: 20,
+    },
 
-  switchButtonText: {
-    color: "white",
-    fontWeight: "700",
-  },
+    switchButtonText: {
+        color: "white",
+        fontWeight: "700",
+    },
 
 });

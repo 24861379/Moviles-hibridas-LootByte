@@ -1,11 +1,5 @@
-import { Redirect } from 'expo-router';
-import { PaperProvider } from 'react-native-paper';
+import { Redirect } from "expo-router";
 
 export default function App() {
-  return (
-    <PaperProvider>
-      <Redirect href="/(cliente)" />
-    </PaperProvider>
-    
-  );
+  return <Redirect href="/(cliente)" />;
 }
