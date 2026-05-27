@@ -57,10 +57,25 @@ export default function AdminLayout() {
                 }} />
             
             <Tabs.Screen
+                name="producto"
+                options={{
+                    href: null,
+                }} />
+            <Tabs.Screen
                 name="producto/crearProducto"
                 options={{
                     href: null,
-                }}/>
+                }} />
+            <Tabs.Screen
+                name="producto/editarProducto"
+                options={{
+                    href: null,
+                }} />
+            <Tabs.Screen
+                name="usuario/crearUsuario"
+                options={{
+                    href: null,
+                }} />
         </Tabs>
     )
 }

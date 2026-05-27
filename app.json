@@ -4,8 +4,39 @@
     "slug": "Moviles-hibridas-LootByte",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/images/usuario_demo.png",
     "scheme": "movileshibridaslootbyte",
     "userInterfaceStyle": "automatic",
-    "plugins": ["expo-router"]
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/usuario_demo.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/usuario_demo.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
   }
 }

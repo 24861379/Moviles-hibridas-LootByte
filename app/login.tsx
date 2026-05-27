@@ -1,8 +1,17 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function Perfil() {
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+export default function App() {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
 
@@ -10,7 +19,7 @@ export default function Perfil() {
     if (correo === "admin@gmail.com" && contrasena === "1234") {
       router.replace("/perfilAdmin");
     } else if (correo === "cliente@gmail.com" && contrasena === "1234") {
-      router.push("/perfil-cliente");
+      router.replace("/");
     } else {
       Alert.alert("Error", "Correo o contraseña incorrectos");
     }
@@ -21,22 +30,50 @@ export default function Perfil() {
       <View style={styles.topContainer}>
         <Text style={styles.titulo}>Regístrate / Inicia sesión</Text>
 
-        <Image source={require("../../assets/LootByte.png")} style={styles.logo} />
+        <Image
+          source={require("../assets/LootByte.png")}
+          style={styles.logo}
+/>
+        
 
-        <TextInput style={styles.input} placeholder="Correo" value={correo} onChangeText={setCorreo} />
-        <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry value={contrasena} onChangeText={setContrasena} />
+        <TextInput
+          style={styles.input}
+          placeholder="Correo"
+          value={correo}
+          onChangeText={setCorreo}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Contraseña"
+          secureTextEntry
+          value={contrasena}
+          onChangeText={setContrasena}
+        />
 
         <TouchableOpacity style={styles.boton} onPress={iniciarSesion}>
           <Text style={styles.textoBoton}>Iniciar sesión</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.botonRegistro} onPress={() => router.push("/registro")}>
+      <TouchableOpacity
+        style={styles.botonRegistro}
+        onPress={() => router.push("/registro")}
+      >
         <Text style={styles.textoRegistro}>Regístrate</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.botonSocial}>
+        <Text>Google</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.botonSocial}>
+        <Text>Facebook</Text>
       </TouchableOpacity>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -89,5 +126,13 @@ const styles = StyleSheet.create({
   },
   textoRegistro: {
     fontWeight: "bold",
+  },
+  botonSocial: {
+    marginTop: 15,
+    width: "70%",
+    backgroundColor: "#d9d9d9",
+    padding: 10,
+    borderRadius: 20,
+    alignItems: "center",
   },
 });

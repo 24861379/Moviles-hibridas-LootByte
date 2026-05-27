@@ -1,14 +1,5 @@
-import { router } from "expo-router";
-import { useEffect } from "react";
+import { Redirect } from "expo-router";
 
-export default function Index() {
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      router.replace("/splash");
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  return null;
+export default function App() {
+  return <Redirect href="/(cliente)" />;
 }
