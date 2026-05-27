@@ -9,23 +9,9 @@ import {
 } from "react-native";
 
 export default function ClienteLayout() {
-    //prueba
-    const router = useRouter();
     return (
         <View style={{ flex: 1 }}>
 
-
-      {/* BOTON TEMPORAL */}
-      <TouchableOpacity
-        style={styles.switchButton}
-        onPress={() =>
-          router.replace("/productos")
-        }>
-        <Text style={styles.switchButtonText}>
-          Ver Admin
-        </Text>
-            </TouchableOpacity>
-            
         <Tabs
             
             screenOptions={{
